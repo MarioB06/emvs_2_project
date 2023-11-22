@@ -17,11 +17,17 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/register', function () {
+    return view('register');
+});
+
 Route::get('/test', function () {
     return view('test');
 });
 
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
+
+Route::post('/register', 'App\Http\Controllers\AuthController@register');
 
 
 
