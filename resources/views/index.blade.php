@@ -1,6 +1,6 @@
 <form action= "{{ url('login') }}" method = "POST" >
     @csrf
-    
+
     <div>
     <label for="username">Username:</label>
     <input type="text" placeholder = "Username" name="username">
@@ -15,3 +15,6 @@
     <button type="submit">Login</button>
 
 </form>
+
+<br>
+<a href="/register">Register</a>

@@ -7,10 +7,12 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <a href="/rank">Rank</a>
-    <a href="/settings">Settings</a>
-    <a href="/friends">Friends</a>
-    <a href="/account">Account</a>
-    <a href="/posts">Posts</a>
+    <a href="{{ route('dashboard.rank') }}">Rank</a>
+    <a href="{{ route('dashboard.settings') }}">Settings</a>
+    <a href="{{ route('dashboard.friends') }}">Friends</a>
+    <a href="{{ route('dashboard.account') }}">Account</a>
+    <a href="{{ route('dashboard.posts') }}">Posts</a>
+
+
 </body>
 </html>

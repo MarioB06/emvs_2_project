@@ -59,4 +59,9 @@ class AuthController extends Controller
         auth()->logout();
         return redirect('/index');
     }
+
+    protected function redirectTo()
+    {
+        return '/dashboard';
+    }
 }
