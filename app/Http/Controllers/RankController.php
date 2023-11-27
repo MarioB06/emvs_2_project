@@ -14,7 +14,7 @@ class RankController extends Controller
 
     public function post($userId)
     {
-        return $this->collectXP($userId, 15);
+        return $this->collectXP($userId, 20);
     }
 
     public function subscribe($userId)
@@ -39,5 +39,11 @@ class RankController extends Controller
         if ($newRank !== $user->rank) {
             $user->update(['rank' => $newRank]);
         }
+    }
+
+    public function showRank()
+    {
+        $user = auth()->user();
+        return view('rank.show', ['user' => $user]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserS;
+use Auth;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +15,9 @@ class DashboardController extends Controller
 
     public function rank()
     {
-        return view('dashboard.rank');
+        $user = Auth::user();
+
+        return view('dashboard.rank', ['user' => $user]);
     }
 
     public function settings()
