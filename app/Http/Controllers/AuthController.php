@@ -15,7 +15,7 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         if (auth()->attempt(['username' => $username, 'password' => $password])) {
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('dashboard');
         }
 
         return redirect()->route('/index')->with('error', 'Login Failed');
