@@ -21,20 +21,17 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
 Route::post('/register', 'App\Http\Controllers\AuthController@register');
 
 
-
-
-Route::post('/login', 'Controller@login');
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/rank', 'App\Http\Controllers\DashboardController@rank')->name('dashboard.rank');
+    Route::get('/dashboard/settings', 'App\Http\Controllers\DashboardController@settings')->name('dashboard.settings');
+    Route::get('/dashboard/friends', 'App\Http\Controllers\DashboardController@friends')->name('dashboard.friends');
+    Route::get('/dashboard/account', 'App\Http\Controllers\DashboardController@account')->name('dashboard.account');
+    Route::get('/dashboard/posts', 'App\Http\Controllers\DashboardController@posts')->name('dashboard.posts');
+});

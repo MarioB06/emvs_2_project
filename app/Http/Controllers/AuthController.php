@@ -15,10 +15,10 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         if (auth()->attempt(['username' => $username, 'password' => $password])) {
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('dashboard');
         }
 
-        return redirect()->route('login')->with('error', 'Login Failed');
+        return redirect()->route('/index')->with('error', 'Login Failed');
     }
 
     public function register(Request $request)
@@ -58,5 +58,10 @@ class AuthController extends Controller
     {
         auth()->logout();
         return redirect('/index');
+    }
+
+    protected function redirectTo()
+    {
+        return '/dashboard';
     }
 }
