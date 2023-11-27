@@ -17,7 +17,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< Updated upstream
             $table->rememberToken();
+=======
+            $table->string('verification_code')->nullable();
+            $table->integer('xp')->default(0);
+            $table->integer('rank')->default(0);
+>>>>>>> Stashed changes
             $table->timestamps();
         });
     }
