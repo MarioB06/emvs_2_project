@@ -44,6 +44,7 @@ class RankController extends Controller
     public function showRank()
     {
         $user = auth()->user();
+
         return view('rank.show', ['user' => $user]);
     }
 }
