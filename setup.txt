@@ -1,0 +1,6 @@
+composer install
+cp .env.example .env
+php artisan key:generate
+
+for database:
+php artisan migrate:fresh --seed
