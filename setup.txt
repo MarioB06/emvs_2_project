@@ -2,5 +2,8 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-for database:
-php artisan migrate:fresh --seed
+(env datei database auf test amchen)
+
+
+php artisan migrate
+php artisan db:seed --class=DatabaseSeeder  
