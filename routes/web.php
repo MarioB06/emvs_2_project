@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RankController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,26 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/test', function () {
-    return view('test');
+Route::get('/register', function () {
+    return view('register');
 });
+
 
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
+Route::post('/register', 'App\Http\Controllers\AuthController@register');
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
 
-Route::post('/login', 'Controller@login');
+    Route::get('/dashboard/rank', [DashboardController::class, 'rank'])->name('dashboard.rank');
 
+    Route::get('/dashboard/settings', 'App\Http\Controllers\DashboardController@settings')->name('dashboard.settings');
+
+    Route::get('/dashboard/friends', [DashboardController::class, 'friends'])->name('dashboard.friends');
+
+    Route::get('/dashboard/account', 'App\Http\Controllers\DashboardController@account')->name('dashboard.account');
+
+    Route::get('/dashboard/posts', 'App\Http\Controllers\DashboardController@posts')->name('dashboard.posts');
+});
