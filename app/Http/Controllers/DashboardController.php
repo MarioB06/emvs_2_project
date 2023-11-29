@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserS;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -27,7 +28,15 @@ class DashboardController extends Controller
 
     public function friends()
     {
-        return view('dashboard.friends');
+        $friends = User::where('id', '!=', auth()->user()->id)
+            ->whereIn('id', function ($query) {
+                $query->select('friend_id')
+                    ->from('friends')
+                    ->where('user_id', auth()->user()->id);
+            })
+            ->get();
+
+        return view('dashboard.friends', compact('friends'));
     }
 
     public function account()
