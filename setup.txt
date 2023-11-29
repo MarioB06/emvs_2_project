@@ -9,4 +9,4 @@ php artisan serve
 php artisan migrate
 php artisan db:seed --class=DatabaseSeeder
 
-(php artisan migrate --path=database/migrations/2023_11_28_232229_create_friends_table.php)
+php artisan migrate --path=database/migrations/2023_11_28_232229_create_friends_table.php

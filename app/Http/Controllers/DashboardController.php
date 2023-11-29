@@ -35,7 +35,7 @@ class DashboardController extends Controller
                     ->where('user_id', auth()->user()->id);
             })
             ->get();
-
+    
         return view('dashboard.friends', compact('friends'));
     }
 
