@@ -1,3 +1,5 @@
+<x-layout>
+    <x-register_form>
 <form method="POST" action="{{ url('register') }}">
 @csrf
 <input type="text" name="username" placeholder="username">
@@ -6,3 +8,5 @@
 <button type="submit">Register</button>
 
 </form>
+</x-layout>
+</x-register_form>
