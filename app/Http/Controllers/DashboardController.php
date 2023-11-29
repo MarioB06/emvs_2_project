@@ -36,7 +36,7 @@ class DashboardController extends Controller
                     ->where('user_id', auth()->user()->id);
             })
             ->get();
-    
+
         return view('dashboard.friends', compact('friends'));
     }
 
@@ -65,6 +65,19 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', 'Freundschaftsanfrage gesendet.');
     }
+
+    public function sentFriendRequests()
+    {
+        $userId = auth()->user()->id;
+
+        $sentRequests = Friend::where('user_id', $userId)
+            ->where('confirmed', false)
+            ->with('friend')
+            ->get();
+
+        return view('dashboard.sent_requests', compact('sentRequests'));
+    }
+
 
     public function account()
     {

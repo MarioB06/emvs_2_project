@@ -13,5 +13,7 @@
     @endif
 @endsection
 
-<a href="dashboard/add_friend">Freund suchen</a>
+<a href="add_friend">Freund suchen</a>
+
+
 
