@@ -1,4 +1,6 @@
 <x-layout>
+
+    <x-login_form>
 <form action= "{{ url('login') }}" method = "POST" >
     @csrf
 
@@ -20,4 +22,5 @@
 
 <br>
 <a href="/register">Register</a>
+</x-login_form>
 </x-layout>
