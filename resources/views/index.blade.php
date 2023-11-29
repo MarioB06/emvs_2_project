@@ -1,3 +1,4 @@
+<x-layout>
 <form action= "{{ url('login') }}" method = "POST" >
     @csrf
 
@@ -5,6 +6,7 @@
     <label for="username">Username:</label>
     <input type="text" placeholder = "Username" name="username">
     </div>
+
 
 
     <div>
@@ -18,3 +20,4 @@
 
 <br>
 <a href="/register">Register</a>
+</x-layout>
