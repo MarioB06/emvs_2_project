@@ -13,13 +13,7 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('friend_id');
-            $table->boolean('confirmed')->default(false);
             $table->timestamps();
-    
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

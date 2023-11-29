@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/friends', [DashboardController::class, 'friends'])->name('dashboard.friends');
 
+    Route::post('/dashboard/add-friend', [DashboardController::class, 'addFriend'])->name('dashboard.addFriend');
+
     Route::get('/dashboard/account', 'App\Http\Controllers\DashboardController@account')->name('dashboard.account');
 
     Route::get('/dashboard/posts', 'App\Http\Controllers\DashboardController@posts')->name('dashboard.posts');

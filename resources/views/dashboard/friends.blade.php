@@ -12,3 +12,6 @@
         <p>Du hast noch keine Freunde.</p>
     @endif
 @endsection
+
+<a href="dashboard/add_friend">Freund suchen</a>
+
