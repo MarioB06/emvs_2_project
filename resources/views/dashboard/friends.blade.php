@@ -14,6 +14,7 @@
 @endsection
 
 <a href="add_friend">Freund suchen</a>
+<a href="requests">Anfragen</a>
 
 
 
