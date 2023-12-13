@@ -53,5 +53,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard/requests/accept/{requestId}', 'App\Http\Controllers\DashboardController@acceptRequest')->name('dashboard.requests.accept');
 
     Route::post('/dashboard/requests/decline/{requestId}', 'App\Http\Controllers\DashboardController@declineRequest')->name('dashboard.requests.decline');
-    
+
+
+    Route::delete('/dashboard/removeFriend/{friendId}', [DashboardController::class, 'removeFriend'])->name('dashboard.removeFriend');
+
+
 });

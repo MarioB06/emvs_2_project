@@ -132,4 +132,19 @@ class DashboardController extends Controller
 
     return redirect()->route('dashboard.requests')->with('error', 'Fehler beim Ablehnen der Anfrage.');
     }
+
+    public function removeFriend($friendId)
+    {
+    $userId = auth()->user()->id;
+
+    // Löschen Sie beide Einträge aus der Datenbank
+    Friend::where(function ($query) use ($userId, $friendId) {
+        $query->where('user_id', $userId)->where('friend_id', $friendId);
+    })->orWhere(function ($query) use ($userId, $friendId) {
+        $query->where('user_id', $friendId)->where('friend_id', $userId);
+    })->delete();
+
+    return redirect()->back()->with('success', 'Freundschaft beendet.');
+    }
+
 }
