@@ -47,4 +47,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/add_friend', function () {
         return view('dashboard/add_friend');
     });
+
+    Route::get('/dashboard/requests', 'App\Http\Controllers\DashboardController@friendRequests')->name('dashboard.requests');
+
+    Route::post('/dashboard/requests/accept/{requestId}', 'App\Http\Controllers\DashboardController@acceptRequest')->name('dashboard.requests.accept');
+
+    Route::post('/dashboard/requests/decline/{requestId}', 'App\Http\Controllers\DashboardController@declineRequest')->name('dashboard.requests.decline');
+    
 });

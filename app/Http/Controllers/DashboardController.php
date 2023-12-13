@@ -88,4 +88,48 @@ class DashboardController extends Controller
     {
         return view('dashboard.posts');
     }
+
+    public function friendRequests()
+    {
+    $userId = auth()->user()->id;
+
+    $incomingRequests = Friend::where('friend_id', $userId)
+        ->where('confirmed', false)
+        ->with('user')
+        ->get();
+
+    return view('dashboard.requests', compact('incomingRequests'));
+    }
+
+    public function acceptRequest($requestId)
+    {
+    $friendship = Friend::find($requestId);
+
+    if ($friendship && $friendship->friend_id === auth()->user()->id) {
+        $friendship->confirmed = true;
+        $friendship->save();
+
+        Friend::create([
+            'user_id' => $friendship->friend_id,
+            'friend_id' => $friendship->user_id,
+            'confirmed' => true,
+        ]);
+
+        return redirect()->route('dashboard.requests')->with('success', 'Freundschaftsanfrage angenommen.');
+    }
+
+    return redirect()->route('dashboard.requests')->with('error', 'Fehler beim Bestätigen der Anfrage.');
+    }
+
+    public function declineRequest($requestId)
+    {
+    $friendship = Friend::find($requestId);
+
+    if ($friendship && $friendship->friend_id === auth()->user()->id) {
+        $friendship->delete();
+        return redirect()->route('dashboard.requests')->with('success', 'Freundschaftsanfrage abgelehnt.');
+    }
+
+    return redirect()->route('dashboard.requests')->with('error', 'Fehler beim Ablehnen der Anfrage.');
+    }
 }
