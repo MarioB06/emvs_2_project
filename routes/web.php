@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/dashboard/add-friend', [DashboardController::class, 'addFriend'])->name('dashboard.addFriend');
 
-    Route::get('/dashboard/account', 'App\Http\Controllers\DashboardController@account')->name('dashboard.account');
+    Route::get('/dashboard/account', [AccountController::class, 'showAccount'])->name('dashboard.account');
 
-    Route::get('/dashboard/posts', 'App\Http\Controllers\DashboardController@posts')->name('dashboard.posts');
+    Route::get('/dashboard/posts', 'App\Http\Controllers\PostController@index')->name('dashboard.posts');
+    Route::post('/dashboard/posts.store', 'App\Http\Controllers\PostController@store')->name('dashboard.posts.store');
+
 
     Route::get('/dashboard/add_friend', function () {
         return view('dashboard/add_friend');
@@ -56,6 +59,10 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::delete('/dashboard/removeFriend/{friendId}', [DashboardController::class, 'removeFriend'])->name('dashboard.removeFriend');
+    
+    Route::post('/dashboard/update-password', [AccountController::class, 'updatePassword'])->name('update-password');
+
+    Route::post('/dashboard.account.update');
 
 
 });
