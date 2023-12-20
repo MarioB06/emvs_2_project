@@ -3,13 +3,13 @@ cp .env.example .env
 php artisan key:generate
 php artisan serve
 
-(env datei database auf test amchen)
 
-
+php artisan migrate --path=database/migrations/2023_11_28_232229_create_friends_table.php
 php artisan migrate
 php artisan db:seed --class=DatabaseSeeder
 
-(php artisan migrate --path=database/migrations/2023_11_28_232229_create_friends_table.php)
-
-
-npm install tailwindcss-gradients --save-dev
+<<<<<<< Updated upstream
+php artisan migrate --path=database/migrations/2023_11_28_232229_create_friends_table.php
+=======
+()
+>>>>>>> Stashed changes

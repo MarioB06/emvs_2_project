@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\UserS;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -39,6 +40,45 @@ class DashboardController extends Controller
         return view('dashboard.friends', compact('friends'));
     }
 
+    public function addFriend(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $friendId = $request->input('friend_id');
+
+        $existingFriendship = Friend::where([
+            'user_id' => $userId,
+            'friend_id' => $friendId,
+        ])->orWhere([
+            'user_id' => $friendId,
+            'friend_id' => $userId,
+        ])->first();
+
+        if ($existingFriendship) {
+            return redirect()->back()->with('error', 'Freundschaft existiert bereits.');
+        }
+
+        Friend::create([
+            'user_id' => $userId,
+            'friend_id' => $friendId,
+            'confirmed' => false,
+        ]);
+
+        return redirect()->back()->with('success', 'Freundschaftsanfrage gesendet.');
+    }
+
+    public function sentFriendRequests()
+    {
+        $userId = auth()->user()->id;
+
+        $sentRequests = Friend::where('user_id', $userId)
+            ->where('confirmed', false)
+            ->with('friend')
+            ->get();
+
+        return view('dashboard.sent_requests', compact('sentRequests'));
+    }
+
+
     public function account()
     {
         return view('dashboard.account');
@@ -48,4 +88,63 @@ class DashboardController extends Controller
     {
         return view('dashboard.posts');
     }
+
+    public function friendRequests()
+    {
+    $userId = auth()->user()->id;
+
+    $incomingRequests = Friend::where('friend_id', $userId)
+        ->where('confirmed', false)
+        ->with('user')
+        ->get();
+
+    return view('dashboard.requests', compact('incomingRequests'));
+    }
+
+    public function acceptRequest($requestId)
+    {
+    $friendship = Friend::find($requestId);
+
+    if ($friendship && $friendship->friend_id === auth()->user()->id) {
+        $friendship->confirmed = true;
+        $friendship->save();
+
+        Friend::create([
+            'user_id' => $friendship->friend_id,
+            'friend_id' => $friendship->user_id,
+            'confirmed' => true,
+        ]);
+
+        return redirect()->route('dashboard.requests')->with('success', 'Freundschaftsanfrage angenommen.');
+    }
+
+    return redirect()->route('dashboard.requests')->with('error', 'Fehler beim Bestätigen der Anfrage.');
+    }
+
+    public function declineRequest($requestId)
+    {
+    $friendship = Friend::find($requestId);
+
+    if ($friendship && $friendship->friend_id === auth()->user()->id) {
+        $friendship->delete();
+        return redirect()->route('dashboard.requests')->with('success', 'Freundschaftsanfrage abgelehnt.');
+    }
+
+    return redirect()->route('dashboard.requests')->with('error', 'Fehler beim Ablehnen der Anfrage.');
+    }
+
+    public function removeFriend($friendId)
+    {
+    $userId = auth()->user()->id;
+
+    // Löschen Sie beide Einträge aus der Datenbank
+    Friend::where(function ($query) use ($userId, $friendId) {
+        $query->where('user_id', $userId)->where('friend_id', $friendId);
+    })->orWhere(function ($query) use ($userId, $friendId) {
+        $query->where('user_id', $friendId)->where('friend_id', $userId);
+    })->delete();
+
+    return redirect()->back()->with('success', 'Freundschaft beendet.');
+    }
+
 }

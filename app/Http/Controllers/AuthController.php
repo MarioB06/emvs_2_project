@@ -18,7 +18,7 @@ class AuthController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return redirect()->route('/index')->with('error', 'Login Failed');
+        return redirect()->route('/')->with('error', 'Login Failed');
     }
 
     public function register(Request $request)
@@ -57,7 +57,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect('/index');
+        return redirect('/');
     }
 
     protected function redirectTo()
