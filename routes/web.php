@@ -43,7 +43,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/account', [AccountController::class, 'showAccount'])->name('dashboard.account');
 
-    Route::get('/dashboard/posts', 'App\Http\Controllers\DashboardController@posts')->name('dashboard.posts');
+    Route::get('/dashboard/posts', 'App\Http\Controllers\PostController@index')->name('dashboard.posts');
+    Route::post('/dashboard/posts.store', 'App\Http\Controllers\PostController@store')->name('dashboard.posts.store');
+
 
     Route::get('/dashboard/add_friend', function () {
         return view('dashboard/add_friend');
