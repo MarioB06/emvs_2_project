@@ -112,7 +112,7 @@
                 </div>
             </form>
 
-            <a href="{{ url('login') }}" class="login-link">Bereits einen Account? Jetzt einloggen!</a>
+            <a href="{{ url('') }}" class="login-link">Bereits einen Account? Jetzt einloggen!</a>
         </div>
     </div>
 
