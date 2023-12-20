@@ -89,8 +89,8 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-300">E-Mail</label>
-                    <input type="email" name="email" id="email" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-300">
+                    <label for="name" class="block text-sm font-medium text-gray-300">Username</label>
+                    <input type="text" name="username" id="email" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-300">
                 </div>
 
                 <div class="mb-4">
