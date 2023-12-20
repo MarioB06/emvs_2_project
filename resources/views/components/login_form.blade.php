@@ -164,8 +164,8 @@
             </form>
 
             <div class="flex items-center justify-between">
-                <a href="{{ url('register') }}" class="text-sm text-gray-300 hover:underline">Noch keinen Account? Jetzt
-                    registrieren!</a>
+                <!-- <a href="{{ url('register') }}" class="text-sm text-gray-300 hover:underline">Noch keinen Account? Jetzt
+                    registrieren!</a> -->
                 <a href="#" class="text-sm text-gray-400 hover:underline">Passwort vergessen?</a>
             </div>
         </div>
