@@ -9,7 +9,9 @@
             @csrf
             <h1>Title</h1>
             <label for="content">Inhalt:</label>
-            <textarea name="content" id="content" rows="4" cols="50" required></textarea>
+            <textarea name="title" id="content" rows="4" cols="50" required placeholder="titel"></textarea>
+<br>
+            <textarea name="content" id="content" rows="4" cols="50" required placeholder="post"></textarea>
             <button type="submit">Posten</button>
         </form>
     </div>

@@ -22,20 +22,20 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        
+
         // Validiere die Eingabe
         $request->validate([
             'content' => 'required|string|max:255',
-            'title' => '',
-            
-            
+            'title' => 'required',
+
+
         ]);
 
         // Erstelle den Beitrag in der Datenbank
         Post::create([
             'user_id' => auth()->id(),
             'content' => $request->input('content'),
-            'title' => 'Standardtitel',
+            'title' => $request->input('title'),
             'likes' => 0,
             'dislikes' => 0,
         ]);
