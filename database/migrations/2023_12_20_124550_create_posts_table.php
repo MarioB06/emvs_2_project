@@ -16,9 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('title');
             $table->text('content');
-            $table->integer(('likes'));
-            $table->integer(('dislikes'));
+            $table->string('image')->nullable();
+            $table->integer('likes');
+            $table->integer('dislikes');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -21,29 +21,31 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    $request->validate([
+        'content' => 'required|string|max:255',
+        'title' => 'required',
+        'image' => 'image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        // Validiere die Eingabe
-        $request->validate([
-            'content' => 'required|string|max:255',
-            'title' => 'required',
+    $imageName = null;
 
-
-        ]);
-
-        // Erstelle den Beitrag in der Datenbank
-        Post::create([
-            'user_id' => auth()->id(),
-            'content' => $request->input('content'),
-            'title' => $request->input('title'),
-            'likes' => 0,
-            'dislikes' => 0,
-        ]);
-        $userId = auth()->id();
-        $rankedController = new RankController();
-        $rankedController->post($userId);
-
-        // Optional: Zeige eine Bestätigungsnachricht oder leite den Benutzer weiter
-        return redirect()->route('dashboard.posts')->with('success', 'Beitrag erfolgreich erstellt.');
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images/posts'), $imageName);
     }
+
+    Post::create([
+        'user_id' => auth()->id(),
+        'content' => $request->input('content'),
+        'title' => $request->input('title'),
+        'image' => $imageName,
+        'likes' => 0,
+        'dislikes' => 0,
+    ]);
+
+
+    return redirect()->route('dashboard.posts')->with('success', 'Beitrag erfolgreich erstellt.');
+}
 }

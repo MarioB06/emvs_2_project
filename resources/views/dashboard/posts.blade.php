@@ -5,15 +5,24 @@
         <h2>Neuen Beitrag erstellen</h2>
 
         <!-- Hier ist der spezifische Inhalt für die Beitragserstellungsseite -->
-        <form action="{{ route('dashboard.posts.store') }}" method="post">
+        <form action="{{ route('dashboard.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <h1>Title</h1>
+
+            <label for="title">Titel:</label>
+            <input type="text" name="title" id="title" required>
+            <br>
+            <br>
             <label for="content">Inhalt:</label>
-            <textarea name="title" id="content" rows="4" cols="50" required placeholder="titel"></textarea>
-<br>
-            <textarea name="content" id="content" rows="4" cols="50" required placeholder="post"></textarea>
+            <textarea name="content" id="content" rows="4" required></textarea>
+            <br>
+            <br>
+            <label for="image">Bild hochladen:</label>
+            <input type="file" name="image" id="image">
+            <br>
+            <br>
             <button type="submit">Posten</button>
         </form>
+
     </div>
 
     <div class="container">
