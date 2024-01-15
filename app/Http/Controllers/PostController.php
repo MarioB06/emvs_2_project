@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\RankController;
 use Illuminate\Http\Request;
 use App\Models\Post;
-
 
 class PostController extends Controller
 {
@@ -21,31 +19,35 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'content' => 'required|string|max:255',
-        'title' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif',
-    ]);
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+            'title' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
+        ]);
 
-    $imageName = null;
+        $imageName = null;
 
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/posts'), $imageName);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/posts'), $imageName);
+        }
+
+        Post::create([
+            'user_id' => auth()->id(),
+            'content' => $request->input('content'),
+            'title' => $request->input('title'),
+            'image' => $imageName,
+            'likes' => 0,
+            'dislikes' => 0,
+        ]);
+
+        // Instanz des RankControllers erstellen
+        $rankController = new RankController();
+
+        $rankController->post(auth()->id());
+
+        return redirect()->route('dashboard.posts')->with('success', 'Beitrag erfolgreich erstellt.');
     }
-
-    Post::create([
-        'user_id' => auth()->id(),
-        'content' => $request->input('content'),
-        'title' => $request->input('title'),
-        'image' => $imageName,
-        'likes' => 0,
-        'dislikes' => 0,
-    ]);
-
-
-    return redirect()->route('dashboard.posts')->with('success', 'Beitrag erfolgreich erstellt.');
-}
 }

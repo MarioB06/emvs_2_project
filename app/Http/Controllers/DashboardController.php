@@ -97,7 +97,7 @@ class DashboardController extends Controller
         ->where('confirmed', false)
         ->with('user')
         ->get();
-
+        dd('friend_id');
     return view('dashboard.requests', compact('incomingRequests'));
     }
 
